@@ -208,6 +208,68 @@ static char * curve_left[] = {
            (if color2 color2 "None"))
    'xpm t :ascent 'center))
 
+(defun rounded-right-xpm
+  (color1 color2)
+  "Return an XPM right rounded string representing."
+  (create-image
+   (format "/* XPM */
+static char * rounded_right[] = {
+\"12 18 2 1\",
+\". c %s\",
+\"  c %s\",
+\"           .\",
+\"          ..\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"         ...\",
+\"          ..\",
+\"           .\"};"
+           (if color2 color2 "None")
+           (if color1 color1 "None"))
+   'xpm t :ascent 'center))
+
+(defun rounded-left-xpm
+  (color1 color2)
+  "Return an XPM left rounded string representing."
+  (create-image
+   (format "/* XPM */
+static char * rounded_left[] = {
+\"12 18 2 1\",
+\". c %s\",
+\"  c %s\",
+\".           \",
+\"..          \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"...         \",
+\"..          \",
+\".           \"};"
+           (if color1 color1 "None")
+           (if color2 color2 "None"))
+   'xpm t :ascent 'center))
+
 (defun make-xpm
   (name color1 color2 data)
   "Return an XPM image for lol data"
@@ -296,6 +358,8 @@ install the memoized function over the original function."
 (memoize 'arrow-right-xpm)
 (memoize 'arrow14-left-xpm)
 (memoize 'arrow14-right-xpm)
+(memoize 'rounded-left-xpm)
+(memoize 'rounded-right-xpm)
 (memoize 'curve-left-xpm)
 (memoize 'curve-right-xpm)
 (memoize 'half-xpm)
@@ -351,6 +415,8 @@ install the memoized function over the original function."
                             (arrow-left-xpm color1 color2))
                            ((eq powerline-arrow-shape 'arrow14)
                             (arrow14-left-xpm color1 color2))
+			   ((eq powerline-arrow-shape 'rounded)
+                            (rounded-left-xpm color1 color2))
                            ((eq powerline-arrow-shape 'curve)
                             (curve-left-xpm color1 color2))
                            ((eq powerline-arrow-shape 'half)
@@ -361,7 +427,8 @@ install the memoized function over the original function."
                                  'mouse-1 (lambda () (interactive)
                                             (setq powerline-arrow-shape
                                                   (cond ((eq powerline-arrow-shape 'arrow)   'arrow14)
-                                                        ((eq powerline-arrow-shape 'arrow14) 'curve)
+                                                        ((eq powerline-arrow-shape 'arrow14) 'rounded)
+							((eq powerline-arrow-shape 'rounded) 'curve)
                                                         ((eq powerline-arrow-shape 'curve)   'half)
                                                         ((eq powerline-arrow-shape 'half)    'arrow)
                                                         (t                                   'arrow)))
@@ -379,6 +446,8 @@ install the memoized function over the original function."
                           (arrow-right-xpm color1 color2))
                          ((eq powerline-arrow-shape 'arrow14)
                           (arrow14-right-xpm color1 color2))
+			 ((eq powerline-arrow-shape 'rounded)
+                          (rounded-right-xpm color1 color2))
                          ((eq powerline-arrow-shape 'curve)
                           (curve-right-xpm color1 color2))
                          ((eq powerline-arrow-shape 'half)
@@ -389,7 +458,8 @@ install the memoized function over the original function."
                                'mouse-1 (lambda () (interactive)
                                           (setq powerline-arrow-shape
                                                 (cond ((eq powerline-arrow-shape 'arrow)   'arrow14)
-                                                      ((eq powerline-arrow-shape 'arrow14) 'curve)
+                                                      ((eq powerline-arrow-shape 'arrow14) 'rounded)
+						      ((eq powerline-arrow-shape 'rounded) 'curve)
                                                       ((eq powerline-arrow-shape 'curve)   'half)
                                                       ((eq powerline-arrow-shape 'half)    'arrow)
                                                       (t                                   'arrow)))
